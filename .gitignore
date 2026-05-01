@@ -1,0 +1,58 @@
+/vendor
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/app/public/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+/bootstrap/cache/*
+
+.env
+.env.*
+!.env.example
+
+.DS_Store
+Thumbs.db
+.idea
+.vscode
+
+!/storage/app/public/.gitignore
+!/storage/framework/cache/.gitignore
+!/storage/framework/sessions/.gitignore
+!/storage/framework/testing/.gitignore
+!/storage/framework/views/.gitignore
+!/storage/logs/.gitignore
+
+# Local environment mistakes
+env
+
+# Backup files and temporary files
+*.bak
+*.backup
+*.tmp
+*.old
+*.orig
+
+# Project backup folders
+database/migrations_backup/
+resources/views_backup_module25/
+resources/views_backup_module25_buttons/
+resources/views_backup_module25_empty_states/
+resources/views_backup_module25_forms/
+resources/views_backup_module26/
+
+# Storage backup folders
+storage/code-backups/
+storage/route-backups/
+
+# Placeholder migration files
+database/migrations/YOUR_*.php
+
+# Accidental loose files
+EnsureAdminUser::class,
+StoreCourseRequest.php
