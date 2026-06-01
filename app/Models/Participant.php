@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Str;
 
 class Participant extends Model
 {
@@ -42,6 +43,20 @@ class Participant extends Model
         'qr_code_path',
         'status',
     ];
+
+
+    protected static function booted(): void
+    {
+        static::creating(function (Participant $participant) {
+            if (blank($participant->qr_identifier)) {
+                do {
+                    $qrIdentifier = 'PT-' . Str::upper(Str::random(10));
+                } while (self::where('qr_identifier', $qrIdentifier)->exists());
+
+                $participant->qr_identifier = $qrIdentifier;
+            }
+        });
+    }
 
     protected function casts(): array
     {

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LocationController;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NotificationReadController;
 use App\Http\Controllers\Auth\ForcePasswordChangeController;
@@ -60,3 +62,15 @@ require __DIR__.'/participant.php';
 Route::middleware(['auth'])->get('/notifications/{notificationId}/open', [NotificationReadController::class, 'markAndRedirect'])->name('notifications.open');
 
 Route::middleware(['auth'])->post('/notifications/mark-all-read', [NotificationReadController::class, 'markAllRead'])->name('notifications.mark-all-read');
+
+
+/*
+|--------------------------------------------------------------------------
+| Location dependent dropdowns
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->group(function () {
+    Route::get('/locations/states', [LocationController::class, 'states'])->name('locations.states');
+    Route::get('/locations/lgas', [LocationController::class, 'lgas'])->name('locations.lgas');
+});
+

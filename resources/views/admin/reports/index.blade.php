@@ -1,6 +1,56 @@
 @extends('layouts.admin')
 
 @section('content')
+
+<style>
+    .biodata-report-card {
+        display: block;
+        text-decoration: none !important;
+        border: 1px solid #b7e4d2;
+        background: linear-gradient(135deg, #ffffff, #f0fdf4);
+        border-radius: 18px;
+        padding: 24px 26px;
+        color: #0f172a !important;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, .04);
+        transition: all .18s ease;
+        grid-column: 1 / -1;
+    }
+
+    .biodata-report-card:hover {
+        transform: translateY(-2px);
+        border-color: #0b6b57;
+        box-shadow: 0 18px 38px rgba(15, 23, 42, .09);
+    }
+
+    .biodata-report-card h3 {
+        margin: 0 0 10px;
+        font-size: 1.15rem;
+        font-weight: 950;
+        color: #0f172a;
+        text-decoration: none !important;
+    }
+
+    .biodata-report-card p {
+        margin: 0;
+        color: #64748b;
+        font-size: .95rem;
+        line-height: 1.6;
+        font-weight: 650;
+        text-decoration: none !important;
+    }
+
+    .biodata-report-card .report-card-tag {
+        display: inline-flex;
+        margin-top: 16px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: #0b6b57;
+        color: #ffffff;
+        font-size: .82rem;
+        font-weight: 900;
+    }
+</style>
+
 <div class="page-header">
     <div>
         <h3 class="page-title">Reports</h3>
@@ -158,6 +208,13 @@
                 <div class="report-link-title">Evaluation Completion</div>
                 <div class="report-link-text">View batch-level evaluation submission progress.</div>
             </a>
+
+                <a href="{{ route('admin.reports.completed-biodata') }}" class="biodata-report-card">
+                    <h3>Completed Biodata Export</h3>
+                    <p>Fetch and download participants who have completed their biodata by batch.</p>
+                    <span class="report-card-tag">Select Batch & Download CSV</span>
+                </a>
+
         </div>
     </div>
 

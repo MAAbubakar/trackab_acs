@@ -53,7 +53,7 @@
                                         <form action="{{ route('admin.batches.destroy', $batch) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this batch?')">
+                                            <button data-confirm-delete data-delete-title="Delete Batch" data-delete-message="Are you sure you want to delete this batch? This action cannot be undone." type="submit" class="btn btn-danger">
                                                 Delete
                                             </button>
                                         </form>

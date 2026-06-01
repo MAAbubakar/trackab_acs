@@ -46,7 +46,15 @@
                                         <form action="{{ route('admin.venues.destroy', $venue) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this venue?')">Delete</button>
+                                            <button
+                                                type="submit"
+                                                class="btn btn-danger"
+                                                data-confirm-delete
+                                                data-delete-title="Delete Venue"
+                                                data-delete-message="Are you sure you want to delete this venue? This action cannot be undone."
+                                            >
+                                                Delete
+                                            </button>
                                         </form>
                                     </div>
                                 </td>
@@ -67,4 +75,5 @@
             </div>
         </div>
     </div>
+
 @endsection

@@ -1,0 +1,31 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: trackb_app
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./.env:/var/www/html/.env:ro
+      - trackb_storage:/var/www/html/storage
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    container_name: trackb_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: trackb_attendance
+      MYSQL_USER: trackb_user
+      MYSQL_PASSWORD: Spesse@abu@2021!
+      MYSQL_ROOT_PASSWORD: Spesse@abu@2021!
+    volumes:
+      - trackb_mysql_data:/var/lib/mysql
+
+volumes:
+  trackb_mysql_data:
+  trackb_storage:
+

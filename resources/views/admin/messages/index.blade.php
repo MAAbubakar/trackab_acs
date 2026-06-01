@@ -6,7 +6,15 @@
             <h3 class="page-title">Message Logs</h3>
             <div class="page-subtitle">Review outbound messages and communication records.</div>
         </div>
+
+        <div class="actions-inline">
+            <a href="{{ route('admin.messages.create') }}" class="btn btn-primary">Compose Message</a>
+        </div>
     </div>
+
+    @if(session('success'))
+        <div class="app-alert app-alert-success">{{ session('success') }}</div>
+    @endif
 
     <div class="card">
         <div class="card-body">

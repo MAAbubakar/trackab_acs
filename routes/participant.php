@@ -25,7 +25,9 @@ Route::middleware(['auth', 'password.change', 'participant.role', 'activity.log'
 
         Route::get('/eligibility', [ParticipantEligibilityController::class, 'index'])->name('eligibility');
 
-        Route::get('/profile', [ParticipantProfileController::class, 'index'])->name('profile');
+        Route::get('/profile', [ParticipantProfileController::class, 'show'])->name('profile');
+        Route::get('/profile/edit', [ParticipantProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/profile', [ParticipantProfileController::class, 'update'])->name('profile.update');
         Route::get('/my-qr', [ParticipantQrController::class, 'show'])->name('qr.show');
         Route::get('/profile/correction-request', [ProfileCorrectionRequestController::class, 'create'])->name('profile-corrections.create');
         Route::post('/profile/correction-request', [ProfileCorrectionRequestController::class, 'store'])->name('profile-corrections.store');
@@ -37,3 +39,5 @@ Route::middleware(['auth', 'password.change', 'participant.role', 'activity.log'
         Route::get('/siwes-letter/view', [SiwesLetterController::class, 'show'])->name('siwes.show');
         Route::get('/siwes-letter/download', [SiwesLetterController::class, 'download'])->name('siwes.download');
     });
+
+

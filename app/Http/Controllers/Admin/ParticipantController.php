@@ -123,6 +123,122 @@ class ParticipantController extends Controller
             ->with('success', 'Participant QR regenerated successfully.');
     }
 
+
+    public function downloadImportTemplate()
+    {
+        $filename = 'trackb_participants_bulk_import_template.csv';
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=\"$filename\"",
+        ];
+
+        $columns = [
+            'participant_no',
+            'full_name',
+            'email',
+            'phone',
+            'password',
+            'gender',
+            'nationality',
+            'age',
+            'academic_background',
+            'employment_status',
+            'organization',
+            'designation',
+            'employment_sector',
+            'state_of_origin',
+            'lga',
+            'course_code',
+            'batch_code',
+            'registration_status',
+            'evaluation_status',
+            'notes',
+        ];
+
+        $sampleRows = [
+            [
+                'TRKB-001',
+                'Amina Yusuf Bello',
+                'amina@example.com',
+                '08031234567',
+                'Spesse@2026',
+                'Female',
+                'Nigeria',
+                '35',
+                'M.Sc/Masters',
+                'employed',
+                'Ahmadu Bello University',
+                'Procurement Officer',
+                'Public',
+                'Kaduna',
+                'Zaria',
+                'PROC-MGT',
+                'BATCH-2026-01',
+                'registered',
+                'pending',
+                'Sample row. Delete before real upload.',
+            ],
+            [
+                'TRKB-002',
+                'Musa Abdullahi Sani',
+                'musa@example.com',
+                '08039876543',
+                'Spesse@2026',
+                'Male',
+                'Nigeria',
+                '42',
+                'B.Sc',
+                'self-employed',
+                'Musa Sani Enterprises',
+                'Managing Director',
+                'Private',
+                'Kano',
+                'Nassarawa',
+                'PROC-MGT',
+                'BATCH-2026-01',
+                'registered',
+                'pending',
+                'Sample row. Delete before real upload.',
+            ],
+            [
+                'TRKB-003',
+                'Grace Okafor',
+                'grace@example.com',
+                '08035551234',
+                'Spesse@2026',
+                'Female',
+                'Nigeria',
+                '29',
+                'HND',
+                'unemployed',
+                '',
+                '',
+                '',
+                'Enugu',
+                'Enugu North',
+                'PROC-MGT',
+                'BATCH-2026-01',
+                'registered',
+                'pending',
+                'Sample row. Delete before real upload.',
+            ],
+        ];
+
+        return response()->streamDownload(function () use ($columns, $sampleRows) {
+            $handle = fopen('php://output', 'w');
+
+            fputcsv($handle, $columns);
+
+            foreach ($sampleRows as $row) {
+                fputcsv($handle, $row);
+            }
+
+            fclose($handle);
+        }, $filename, $headers);
+    }
+
+
     public function importForm(): View
     {
         $courses = Course::orderBy('title')->get();

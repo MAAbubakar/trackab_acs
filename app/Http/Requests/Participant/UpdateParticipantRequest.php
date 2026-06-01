@@ -24,7 +24,14 @@ class UpdateParticipantRequest extends FormRequest
         $participant = $this->route('participant');
 
         return [
-            'course_id' => ['required', 'exists:courses,id'],
+            
+            'age' => ['nullable', 'integer', 'min:1', 'max:120'],
+            'nationality' => ['nullable', 'string', 'max:100'],
+            'academic_background' => ['nullable', 'string', 'max:150'],
+            'employment_status' => ['nullable', 'string', 'in:employed,unemployed,self-employed'],
+            'employment_sector' => ['nullable', 'string', 'in:Public,Private'],
+            'employer_name' => ['nullable', 'string', 'max:255'],
+'course_id' => ['required', 'exists:courses,id'],
             'batch_id' => ['required', 'exists:batches,id'],
             'participant_no' => [
                 'required',

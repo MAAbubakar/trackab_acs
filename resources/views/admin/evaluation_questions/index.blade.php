@@ -41,7 +41,15 @@
                             <form action="{{ route('admin.evaluation-forms.questions.destroy', [$evaluationForm, $question]) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this question?')">Delete</button>
+                                <button
+                                    type="submit"
+                                    class="btn btn-danger"
+                                    data-confirm-delete
+                                    data-delete-title="Delete Evaluation Question"
+                                    data-delete-message="Are you sure you want to delete this evaluation question? This action cannot be undone."
+                                >
+                                    Delete
+                                </button>
                             </form>
                             @endrole
                         </td>

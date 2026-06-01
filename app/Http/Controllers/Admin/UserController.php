@@ -384,4 +384,35 @@ class UserController extends Controller
 
         return back()->with('success', "Bulk status update completed. Updated: {$count}");
     }
+    public function grouped(\Illuminate\Http\Request $request): \Illuminate\View\View
+    {
+        $users = \App\Models\User::query()
+            ->with(['roles', 'participant'])
+            ->when($request->filled('search'), function ($query) use ($request) {
+                $search = $request->string('search')->toString();
+
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
+            ->when($request->filled('role'), function ($query) use ($request) {
+                $role = $request->string('role')->toString();
+
+                $query->whereHas('roles', fn ($q) => $q->where('name', $role));
+            })
+            ->when($request->filled('status'), function ($query) use ($request) {
+                $query->where('status', $request->string('status')->toString());
+            })
+            ->orderBy('name')
+            ->get();
+
+        $roles = class_exists(\App\Models\Role::class)
+            ? \App\Models\Role::query()->orderBy('name')->get()
+            : collect();
+
+        return view('admin.users.grouped', compact('users', 'roles'));
+    }
+
+
 }

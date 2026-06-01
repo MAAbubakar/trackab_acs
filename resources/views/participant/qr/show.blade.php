@@ -332,6 +332,8 @@
         } else {
             $qrUrl = asset('storage/' . $path);
         }
+    } else {
+        $qrUrl = asset('storage/participant-qrcodes/participant-' . $participant->id . '.svg');
     }
 @endphp
 

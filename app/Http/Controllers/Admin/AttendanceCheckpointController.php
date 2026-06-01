@@ -172,4 +172,63 @@ class AttendanceCheckpointController extends Controller
 
         return null;
     }
+
+    public function launch(\App\Models\AttendanceCheckpoint $checkpoint): \Illuminate\Http\RedirectResponse
+    {
+        $table = $checkpoint->getTable();
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn($table, 'status')) {
+            $checkpoint->status = 'open';
+        }
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn($table, 'is_active')) {
+            $checkpoint->is_active = true;
+        }
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn($table, 'is_open')) {
+            $checkpoint->is_open = true;
+        }
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn($table, 'opened_at')) {
+            $checkpoint->opened_at = now();
+        }
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn($table, 'launched_at')) {
+            $checkpoint->launched_at = now();
+        }
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn($table, 'closed_at')) {
+            $checkpoint->closed_at = null;
+        }
+
+        $checkpoint->save();
+
+        return back()->with('success', 'Checkpoint launched successfully. Scanner is now available.');
+    }
+
+    public function close(\App\Models\AttendanceCheckpoint $checkpoint): \Illuminate\Http\RedirectResponse
+    {
+        $table = $checkpoint->getTable();
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn($table, 'status')) {
+            $checkpoint->status = 'closed';
+        }
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn($table, 'is_active')) {
+            $checkpoint->is_active = false;
+        }
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn($table, 'is_open')) {
+            $checkpoint->is_open = false;
+        }
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn($table, 'closed_at')) {
+            $checkpoint->closed_at = now();
+        }
+
+        $checkpoint->save();
+
+        return back()->with('success', 'Checkpoint closed successfully.');
+    }
+
 }

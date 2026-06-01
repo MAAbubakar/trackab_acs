@@ -8,7 +8,16 @@
         </div>
 
         <div>
-            <a href="{{ route('admin.participants.index') }}" class="btn btn-secondary">Back to Participants</a>
+            
+<div class="flex items-center gap-3 mb-4">
+    <a href="{{ route('admin.participants.index') }}" class="btn btn-secondary">Back to Participants</a>
+    
+<a href="{{ route('admin.participants.import-template') }}" class="btn btn-secondary">
+    Download Sample CSV Template
+</a>
+
+</div>
+
         </div>
     </div>
 
@@ -35,7 +44,8 @@
             </div>
         </div>
 
-        <form action="{{ route('admin.participants.import') }}" method="POST" enctype="multipart/form-data" class="form-grid content-narrow">
+        
+<form action="{{ route('admin.participants.import') }}" method="POST" enctype="multipart/form-data" class="form-grid content-narrow">
                 @csrf
 
                 <div class="two-col-grid">

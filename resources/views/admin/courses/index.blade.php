@@ -44,7 +44,7 @@
                                         <form action="{{ route('admin.courses.destroy', $course) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this course?')">
+                                            <button data-confirm-delete data-delete-title="Delete Course" data-delete-message="Are you sure you want to delete this course? This action cannot be undone." type="submit" class="btn btn-danger">
                                                 Delete
                                             </button>
                                         </form>

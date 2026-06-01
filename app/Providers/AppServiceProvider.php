@@ -14,6 +14,7 @@ use App\Models\TrainingSession;
 use App\Models\Venue;
 use App\Observers\GenericActivityObserver;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        Paginator::defaultView('vendor.pagination.admin');
+        Paginator::defaultSimpleView('vendor.pagination.admin');
         Course::observe(GenericActivityObserver::class);
         Venue::observe(GenericActivityObserver::class);
         Batch::observe(GenericActivityObserver::class);
